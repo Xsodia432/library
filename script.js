@@ -7,19 +7,27 @@ const booksContainer = document.getElementById("books-container");
 
 const booksCollection = [];
 
-function createBook(title, author, pages, status) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.status = status;
-  this.getBook = function () {
+class createBook {
+  constructor(title, author, pages, status) {
+    this._title = title;
+    this._author = author;
+    this._pages = pages;
+    this._status = status;
+  }
+  set book({ title, author, pages, status }) {
+    this._title = title;
+    this._author = author;
+    this._pages = pages;
+    this._status = status;
+  }
+  get book() {
     return {
-      title: this.title,
-      author: this.author,
-      pages: this.pages,
-      status: false,
+      title: this._title,
+      author: this._author,
+      pages: this._pages,
+      status: this._status,
     };
-  };
+  }
 }
 
 bookForm.addEventListener("submit", (ev) => {
@@ -31,6 +39,7 @@ bookForm.addEventListener("submit", (ev) => {
     new createBook(title.toUpperCase(), author, pages, false)
   );
   ev.target.reset();
+
   renderBook();
 });
 
@@ -55,12 +64,14 @@ const renderBook = () => {
     changeStatusEl.addEventListener("click", () => {
       changeStatus(key);
     });
-    title.textContent = val.title;
-    authorEle.textContent = `By ${val.author}`;
-    pagesEle.textContent = `${val.pages} Pages`;
+    title.textContent = val._title;
+    authorEle.textContent = `By ${val._author}`;
+    pagesEle.textContent = `${val._pages} Pages`;
     removeEl.textContent = "Delete Book";
-    changeStatusEl.textContent = val.status ? "Completed" : "Mark as Completed";
-    changeStatusEl.classList = val.status ? "completed" : "default";
+    changeStatusEl.textContent = val._status
+      ? "Completed"
+      : "Mark as Completed";
+    changeStatusEl.classList = val._status ? "completed" : "default";
     coverTop.append(authorEle, title, pagesEle);
     coverBottom.append(changeStatusEl, removeEl);
     bookDiv.append(coverTop, coverBottom);
@@ -68,7 +79,7 @@ const renderBook = () => {
   });
 };
 const changeStatus = (id) => {
-  booksCollection[id].status = !booksCollection[id].status;
+  booksCollection[id]._status = !booksCollection[id]._status;
 
   renderBook();
 };
