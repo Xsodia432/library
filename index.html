@@ -21,14 +21,22 @@
       <div class="modal-content">
         <span class="close">&times;</span>
         <h2>Add book</h2>
-        <form class="book-form" name="book-form" id="book-form">
+        <form class="book-form" name="book-form" id="book-form" novalidate>
+          <div>
           <label for="title">Title</label>
-          <input type="text" name="title" required />
-
+          <input type="text" name="title" maxlength="50" minlength="5" required/>
+          <span class="error-message"></span>
+          </div>
+          <div>
           <label for="author">Author</label>
-          <input type="text" name="author" required />
+          <input type="text" name="author" maxlength="50" minlength="5" required />
+          <span class="error-message"></span>
+        </div>
+        <div>
           <label for="page">Page</label>
-          <input type="text" name="pages" required />
+          <input type="number" name="pages"  required />
+          <span class="error-message"></span>
+        </div>
           <button type="submit" id="submit-form">Submit</button>
         </form>
       </div>
@@ -43,15 +51,7 @@
 
     <div class="main-content">
       <div id="books-container">
-        <div>
-          <p>By Test</p>
-          <p>pages</p>
-        </div>
-        <div>asdasd</div>
-        <div>asdasd</div>
-        <div>asdasd</div>
-        <div>asdasd</div>
-      </div>
+        
     </div>
   </body>
 </html>
